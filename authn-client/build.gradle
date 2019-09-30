@@ -1,0 +1,67 @@
+plugins{
+    id 'com.lingocoder.mrjar' version '0.0.13'
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java-library'
+    id 'com.gradle.build-scan' version '2.4'
+    id 'application'
+    id 'com.github.hierynomus.license' version '0.15.0'
+}
+
+repositories{ 
+    jcenter( )
+    mavenCentral( )
+    mavenLocal( )
+    maven{ 
+       url = 'https://raw.githubusercontent.com/lingocoder/m2/release/0.0.0/'
+    }
+}
+
+group = 'mr.jar'
+version = '0.0.0'
+sourceCompatibility = '1.9'
+targetCompatibility = '1.9'
+
+def input = []
+if (project.hasProperty( 'option' )) { input[0] = "$option"}
+if (project.hasProperty( 'user' ) && project.hasProperty( 'pwd' )) { input[1] = "$user"; input[2] = "$pwd"}
+if (project.hasProperty( 'token' )) { input[1] = "$token"}
+
+mrjar{
+    main = 'com.alexkudlick.authn.client.AuthenticationClientApplication'
+    args = input
+}
+
+dependencies {
+    
+        implementation 'mr.jar:authentication-models:0.0.0'
+        
+        implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+        implementation(group: 'com.google.guava', name: 'guava', version: '27.1-jre') {
+            exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        }
+
+        api group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.9'
+        
+        implementation 'commons-logging:commons-logging:1.2'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+license { header = file('src/main/resources/META-INF/LICENSE-HEADER.txt') }
+
+license {
+    excludes(["**/*.txt", "**/*keep*.*", "**/*.gradle*", "**/*.*ignore", "**/*.properties"])
+
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'lingocoder'
+    ext.email = 'plugins@lingocoder.com'
+
+    skipExistingHeaders = true
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+}  

@@ -1,0 +1,4 @@
+rootProject.name = 'mr.jar.authn'
+
+includeBuild '../authn-client'
+includeBuild '../authn-api'

@@ -1,0 +1,58 @@
+plugins{ 
+    id 'idea'
+    id 'com.gradle.build-scan' version '2.4'
+}
+
+task runClient {
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':run')     
+}
+
+task runApi {    
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':run')
+}
+
+task checkAll {
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':check')
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':check')
+}
+
+task assembleClient {
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':assemble')
+}
+
+task assembleApi {
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':assemble')
+}
+
+task assembleAll {
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':assemble')
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':assemble')
+}
+
+task checkClient {
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':check')
+}
+
+task checkApi {
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':check')
+}
+
+task dependenciesClient {    
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':dependencies')
+}
+
+task dependenciesApi {    
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':dependencies')
+}
+
+task license {
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':licenseFormat')
+    dependsOn gradle.includedBuild('mr.jar.authn.client').task(':licenseFormatTest')
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':licenseFormat')
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':licenseFormatTest')
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+}  

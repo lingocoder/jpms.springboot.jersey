@@ -1,0 +1,99 @@
+plugins {
+    id 'com.lingocoder.mrjar' version '0.0.13'
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java-library'
+    id 'com.gradle.build-scan' version '2.4'
+    id 'application'
+    id 'com.github.hierynomus.license' version '0.15.0'
+}
+
+repositories{
+    jcenter( )
+    mavenCentral( )
+    mavenLocal( )
+    maven{ 
+       url = 'https://raw.githubusercontent.com/lingocoder/m2/release/0.0.0/'
+    }
+}
+
+group = 'mr.jar'
+version = '0.0.0'
+sourceCompatibility = '1.9'
+targetCompatibility = '1.9'
+
+mrjar{ 
+    main = 'com.alexkudlick.authn.api.AuthnApplication'
+}
+
+dependencies {
+    
+    implementation 'mr.jar:authentication-models:0.0.0'
+		
+    // crypto
+    implementation group: 'com.atlassian.security', name: 'atlassian-password-encoder', version: '3.2.14'
+
+    runtimeOnly group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.60'
+    //end crypto
+
+    implementation 'org.hsqldb:hsqldb'
+    
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation ('org.springframework.boot:spring-boot-starter-jersey'){
+        exclude group: 'org.springframework', module: 'spring-aop'
+        exclude group: 'org.glassfish.hk2.external', module: 'aopalliance-repackaged'
+    }
+
+    dependencyManagement {
+        dependencies {
+            dependency 'org.apache.tomcat.embed:tomcat-embed-core:9.0.26'
+            dependency 'org.apache.tomcat.embed:tomcat-embed-el:9.0.26'
+            dependency 'org.apache.tomcat.embed:tomcat-embed-websocket:9.0.26'
+            dependency 'org.glassfish.hk2:core-model:2.6.1'
+            dependency 'org.glassfish.hk2:config-types:2.6.1'
+            dependency 'org.glassfish.hk2:hk2:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-api:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-config:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-core:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-locator:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-runlevel:2.6.1'
+            dependency 'org.glassfish.hk2:hk2-utils:2.6.1'
+            dependency 'org.glassfish.hk2:spring-bridge:2.6.1'
+            dependency 'org.glassfish.hk2.external:aopalliance-repackaged:2.6.1'
+            dependency 'org.glassfish.hk2.external:asm-all-repackaged:2.6.1'
+        }
+    }
+
+    implementation ('org.springframework.boot:spring-boot-starter-security')
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2+'
+    
+    testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2+'
+    
+    implementation(group: 'com.google.guava', name: 'guava', version: '27.1-jre') {
+          exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-Xlint:unchecked', '-Xlint:deprecation', '-Xlint:preview']
+}
+
+license { header = file('src/main/resources/META-INF/LICENSE-HEADER.txt') }
+
+license {
+    excludes(["**/*.txt", "**/*keep*.*", "**/*.gradle*", "**/*.*ignore", "**/*.properties"])
+
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'lingocoder'
+    ext.email = 'plugins@lingocoder.com'
+
+    skipExistingHeaders = true
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+}
