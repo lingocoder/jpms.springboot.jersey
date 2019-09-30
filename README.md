@@ -13,7 +13,7 @@ The code in this project is a Spring Boot port of [*this Dropwizard-based projec
 
 ### mrJar — JPMS Modules Made Easy
 
-The Dropwizard-based project had a nifty CLI feature. But for the purposes of demonstrating a Jigsaw module-based RESTful API, a full-blown CLI feature is not strictly necessary. Without it, the application is both much easier to use ***and*** a lot simpler to explain. The only command we really need in the *`authn-api`* module is Gradle's *`:run`* task to start the server. Removing the CLI also [*solved another frustrating problem*](). 
+The Dropwizard-based project had a nifty CLI feature. But for the purposes of demonstrating a Jigsaw module-based RESTful API, a full-blown CLI feature is not strictly necessary. Without it, the application is both much easier to use ***and*** a lot simpler to explain. The only command we really need in the *`authn-api`* module is Gradle's *`:run`* task to start the server. Removing the CLI also [*solved another frustrating problem*](http://bit.ly/Issue10825). 
 
 ### Zero Database Configuration
 
