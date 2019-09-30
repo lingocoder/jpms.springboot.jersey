@@ -60,8 +60,8 @@ This was the easiest, most straightforward part of the whole process.
 
 At this point you have two modular jars in the two *included builds*' respective *`build/libs`* folders. You can confirm ***mrJar's*** successful creation of either of the two explicit modules with:
 
-        jar -f authn-api/build/libs/authn-api.jar --describe-module
-        com.alexkudlick.authn.api jar:file:///.../authn-api/build/libs/authn-api.jar/!module-info.class
+        jar -f authn-api/build/libs/mr.jar.authn.api-0.0.0.jar --describe-module
+        mr.jar.authn.api jar:file:///.../authn-api/build/libs/mr.jar.authn.api-0.0.0.jar/!module-info.class
         ...
         requires com.alexkudlick.authentication.models
         ...
@@ -107,7 +107,7 @@ Having those preset input values spares you a few keystrokes at the command line
     }
     
 
- After that, you need to set the *`AUTHENTICATION_URL`* environment variable to *`http://localhost:8080`*.  Now, *`cd`* into the *authentication* directory then run this command to create a user:
+ After that, you need to set the *`AUTHENTICATION_URL`* environment variable to *`http://localhost:8080`*.  Now, *`cd`* into the *authn* directory then run this command to create a user:
 
     gradlew runClient
        
