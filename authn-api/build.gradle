@@ -6,6 +6,7 @@ plugins {
     id 'com.gradle.build-scan' version '2.4'
     id 'application'
     id 'com.github.hierynomus.license' version '0.15.0'
+    id 'org.owasp.dependencycheck' version '5.2.2'
 }
 
 repositories{
@@ -96,4 +97,11 @@ license {
 buildScan {
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
     termsOfServiceAgree = 'yes'
+}
+
+dependencyCheck {
+    /* Uncomment||comment-out one or the other of the following lines, depending on whether
+    /* you want just the mrjar plugin analyzed or every artifact in the entire Gradle cache */
+/*    scanSet = [gradle.gradleUserHomeDir.toPath( ).resolve( 'caches/modules-2/files-2.1/com.lingocoder.mrjar/com.lingocoder.mrjar.gradle.plugin' ).toString( )]*/
+    scanSet = [gradle.gradleUserHomeDir.toPath( ).resolve( 'caches/modules-2/files-2.1/' )]
 }

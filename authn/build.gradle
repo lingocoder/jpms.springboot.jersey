@@ -55,4 +55,8 @@ task license {
 buildScan {
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
     termsOfServiceAgree = 'yes'
-}  
+}
+
+task repeatExperiment{
+    dependsOn gradle.includedBuild('mr.jar.authn.api').task(':dependencyCheck')
+}
