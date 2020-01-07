@@ -1,7 +1,7 @@
 ## Build A Modular Spring Boot RESTful API with the ***mrJar*** Gradle Plugin
 
 This project demonstrates the ease with which you can build and run a module-based RESTful API using Spring Boot, Jersey and [*the **mrJar** plugin*](http://bit.ly/mrJar.com). 
-The code in this project is a Spring Boot port of [*this Dropwizard-based project*]().
+The code in this project is a Spring Boot port of [*this Dropwizard-based project*](http://bit.ly/mrJarZard).
  As well as using a different framework, it uses a different Java module plugin too. 
 
 ### Prerequisites
@@ -62,7 +62,7 @@ At this point you have two modular jars in the two *included builds*' respective
 
         jar -f authn-api/build/libs/mr.jar.authn.api-0.0.0.jar --describe-module
         mr.jar.authn.api jar:file:///.../authn-api/build/libs/mr.jar.authn.api-0.0.0.jar/!module-info.class
-        ...
+        ...+                            
         requires com.alexkudlick.authentication.models
         ...
         requires jackson.annotations
@@ -76,13 +76,13 @@ At this point you have two modular jars in the two *included builds*' respective
 
 ### Start the Server
 
-Make sure you've set the *`DATABASE_JDBC_URL`* environment variable. The authn-api's build script needs to look like this:
+The authn-api's build script needs to look like this:
 
     mrjar{ 
         main = 'com.alexkudlick.authn.api.AuthnApplication'
     }
     
-Then you're good to run:
+Now, *`cd`* into the *authn* directory then run this command:
 
     gradlew runApi
 
@@ -107,7 +107,7 @@ Having those preset input values spares you a few keystrokes at the command line
     }
     
 
- After that, you need to set the *`AUTHENTICATION_URL`* environment variable to *`http://localhost:8080`*.  Now, *`cd`* into the *authn* directory then run this command to create a user:
+ After that, you need to set the *`AUTHENTICATION_URL`* environment variable to *`http://localhost:8080`*.  If you haven't  already, *`cd`* into the *authn* directory then run this command to create a user:
 
     gradlew runClient
        
