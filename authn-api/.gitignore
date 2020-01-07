@@ -60,12 +60,12 @@ build
 *.iws
 caches
 daemon
-gradlew*
+#gradlew*
 native
 out
 notifications
 build-scan-data
-gradle/wrapper
+#gradle/wrapper
 **/plugin-under-test-metadata.properties
 **/log4j.properties
 **/logback.xml
